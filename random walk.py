@@ -1,13 +1,14 @@
 import time
 import matplotlib.pyplot as plt
-
+import matplotlib as mpl
+mpl.rc('lines', linewidth=4, color='c')
 direction_data = []
 x = 0
 y = 0
 x_data = []
 y_data = []
 count = 0
-limit = 1000000
+limit = 1000
 import random
 
 while count < limit:
@@ -24,6 +25,6 @@ while count < limit:
         y -= 1
     x_data.append(x)
     y_data.append(y)
-plt.plot(x_data, y_data)
-plt.pause(0.1)
+    plt.plot(x_data, y_data)
+    plt.pause(0.1)
 plt.show()
