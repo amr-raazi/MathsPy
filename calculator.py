@@ -37,7 +37,7 @@ def number_button(num):
 
 
 # clear button command
-def clear_button():
+def clear_command():
     global operator_number
     box.configure(state="normal")
     box.delete(0, END)
@@ -65,7 +65,7 @@ def operator_button(operator):
 
 
 # decimal button command
-def decimal_button():
+def decimal_command():
     list_of_numbers = list(box.get())
     if "." not in list_of_numbers:
         current_num = box.get()
@@ -78,7 +78,7 @@ def decimal_button():
 
 
 # backspace button command
-def backspace_button():
+def backspace_command():
     list_of = list(box.get())
     list_of.pop()
     str1 = ''.join(str(e) for e in list_of)
@@ -89,7 +89,7 @@ def backspace_button():
 
 
 # equal button command
-def equal_button():
+def equal_command():
     global operator_number
     length = len(operator_number)
     latest_value = box.get()
@@ -109,7 +109,7 @@ def equal_button():
         elif operator == "+":
             number = first_number + second_number
         else:
-           number = second_number
+            number = second_number
         first_number = number
     if length == 0:
         number = float(operator_number[0].split(" ")[-1])
@@ -123,30 +123,50 @@ def equal_button():
 
 # number buttons
 one_button = Button(root, text="1", command=lambda: number_button(1), width=7, height=2, font=button_font)
+root.bind("1", lambda event: number_button(1))
 two_button = Button(root, text="2", command=lambda: number_button(2), width=7, height=2, font=button_font)
+root.bind("2", lambda event: number_button(2))
 three_button = Button(root, text="3", command=lambda: number_button(3), width=7, height=2, font=button_font)
+root.bind("3", lambda event: number_button(3))
 four_button = Button(root, text="4", command=lambda: number_button(4), width=7, height=2, font=button_font)
+root.bind("4", lambda event: number_button(4))
 five_button = Button(root, text="5", command=lambda: number_button(5), width=7, height=2, font=button_font)
+root.bind("5", lambda event: number_button(5))
 six_button = Button(root, text="6", command=lambda: number_button(6), width=7, height=2, font=button_font)
+root.bind("6", lambda event: number_button(6))
 seven_button = Button(root, text="7", command=lambda: number_button(7), width=7, height=2, font=button_font)
+root.bind("7", lambda event: number_button(7))
 eight_button = Button(root, text="8", command=lambda: number_button(8), width=7, height=2, font=button_font)
+root.bind("8", lambda event: number_button(8))
 nine_button = Button(root, text="9", command=lambda: number_button(9), width=7, height=2, font=button_font)
+root.bind("9", lambda event: number_button(9))
 zero_button = Button(root, text="0", command=lambda: number_button(0), width=7, height=2, font=button_font)
+root.bind("0", lambda event: number_button(0))
 
 # operator buttons
 add_button = Button(root, text="+", command=lambda: operator_button("+"), width=7, height=2, font=button_font)
+root.bind("+", lambda event: operator_button("+"))
 subtract_button = Button(root, text="-", command=lambda: operator_button("-"), width=7, height=2,
                          font=button_font)
+root.bind("-", lambda event: operator_button("-"))
 multiply_button = Button(root, text="×", command=lambda: operator_button("*"), width=7, height=2,
                          font=button_font)
+root.bind("*", lambda event: operator_button("*"))
+root.bind("x", lambda event: operator_button("*"))
 division_button = Button(root, text="÷", command=lambda: operator_button("/"), width=7, height=2,
                          font=button_font)
+root.bind("/", lambda event: operator_button("/"))
 
 # misc
-decimal_button = Button(root, text=".", command=decimal_button, width=7, height=2, font=button_font)
-equal_button = Button(root, text="=", command=equal_button, width=8, height=6, font=equal_button_font)
-clear_button = Button(root, text="clear", command=clear_button, width=14, height=2, font=clear_button_font)
-backspace_button = Button(root, text="back", command=backspace_button, width=7, height=2, font=backspace_font)
+decimal_button = Button(root, text=".", command=decimal_command, width=7, height=2, font=button_font)
+root.bind(".", lambda event: decimal_command())
+equal_button = Button(root, text="=", command=equal_command, width=8, height=6, font=equal_button_font)
+root.bind("=", lambda event: equal_command())
+root.bind("<Return>", lambda event: equal_command())
+clear_button = Button(root, text="clear", command=clear_command, width=14, height=2, font=clear_button_font)
+root.bind("c", lambda event: clear_command())
+backspace_button = Button(root, text="back", command=backspace_command, width=7, height=2, font=backspace_font)
+root.bind("<BackSpace>", lambda event: backspace_command())
 
 # fit into grid
 one_button.grid(row=1, column=0)
