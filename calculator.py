@@ -55,11 +55,7 @@ def operator_button(operator):
         identity = 1
     number = box.get()
     if str(number) == "":
-        try:
-            number = operator_number[len(operator_number) - 2].split()
-            number = number[-1]
-        except (IndexError, KeyError):
-            number = identity
+        number = identity
     key = len(operator_number)
     operator_number[key] = str(operator) + " " + str(number)
     box.configure(state="normal")
