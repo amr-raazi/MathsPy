@@ -3,7 +3,7 @@ from tkinter import font as tkfont
 import math
 
 # program variable
-operator_number = []
+operator_number = {}
 
 # initiating instance
 root = Tk()
@@ -38,17 +38,26 @@ def number_button(num):
 
 # clear button command
 def clear_button():
+    global operator_number
     box.configure(state="normal")
     box.delete(0, END)
     box.configure(state="disabled")
+    operator_number = {}
     return None
 
 
 # operator button command
 def operator_button(operator):
     global operator_number
-    first_number = box.get()
-    operator_number = [operator, first_number]
+    if operator == "-" or "+":
+        identity = 0
+    elif operator == "*" or "/":
+        identity = 1
+    number = box.get()
+    if str(number) == "":
+        number = str(identity)
+    key = len(operator_number)
+    operator_number[key] = str(operator) + " " + str(number)
     box.configure(state="normal")
     box.delete(0, END)
     box.configure(state="disabled")
@@ -65,8 +74,6 @@ def decimal_button():
         box.delete(0, END)
         box.insert(0, current_num)
         box.configure(state="disabled")
-    else:
-        print("Decimal already added")
     return None
 
 
@@ -84,10 +91,15 @@ def backspace_button():
 # equal button command
 def equal_button():
     global operator_number
-    try:
-        second_number = float(box.get())
-        first_number = float(operator_number[1])
-        operator = operator_number[0]
+    length = len(operator_number)
+    latest_value = box.get()
+    operator_number[length] = latest_value
+    first_number = float(operator_number[0].split(" ")[-1])
+    for index in range(length):
+        key = operator_number[index].split(" ")
+        key2 = operator_number[index + 1].split(" ")
+        second_number = float(key2[-1])
+        operator = key[0]
         if operator == "/":
             number = first_number / second_number
         elif operator == "*":
@@ -97,17 +109,12 @@ def equal_button():
         elif operator == "+":
             number = first_number + second_number
         else:
-            number = second_number
-        if math.ceil(number) == number:
-            number = int(number)
-    except (IndexError, ValueError):
-        if len(operator_number) == 0:
-            if not len(box.get()) == 0:
-                number = box.get()
-            else:
-                number = 0
-        else:
-            number = operator_number[1]
+           number = second_number
+        first_number = number
+    if length == 0:
+        number = float(operator_number[0].split(" ")[-1])
+    if math.ceil(number) == number:
+        number = int(number)
     box.configure(state="normal")
     box.delete(0, END)
     box.insert(0, number)
