@@ -55,7 +55,11 @@ def operator_button(operator):
         identity = 1
     number = box.get()
     if str(number) == "":
-        number = str(identity)
+        try:
+            number = operator_number[len(operator_number) - 2].split()
+            number = number[-1]
+        except (IndexError, KeyError):
+            number = identity
     key = len(operator_number)
     operator_number[key] = str(operator) + " " + str(number)
     box.configure(state="normal")
@@ -91,34 +95,42 @@ def backspace_command():
 # equal button command
 def equal_command():
     global operator_number
-    length = len(operator_number)
-    latest_value = box.get()
-    operator_number[length] = latest_value
-    first_number = float(operator_number[0].split(" ")[-1])
-    for index in range(length):
-        key = operator_number[index].split(" ")
-        key2 = operator_number[index + 1].split(" ")
-        second_number = float(key2[-1])
-        operator = key[0]
-        if operator == "/":
-            number = first_number / second_number
-        elif operator == "*":
-            number = first_number * second_number
-        elif operator == "-":
-            number = first_number - second_number
-        elif operator == "+":
-            number = first_number + second_number
-        else:
-            number = second_number
-        first_number = number
-    if length == 0:
-        number = float(operator_number[0].split(" ")[-1])
-    if math.ceil(number) == number:
-        number = int(number)
-    box.configure(state="normal")
-    box.delete(0, END)
-    box.insert(0, number)
-    box.configure(state="disabled")
+    if len(operator_number) != 0:
+        length = len(operator_number)
+        latest_value = box.get()
+        operator_number[length] = latest_value
+        first_number = float(operator_number[0].split(" ")[-1])
+        for index in range(length):
+            key = operator_number[index].split(" ")
+            operator = key[0]
+            key2 = operator_number[index + 1].split(" ")
+            if operator == "-" or "+":
+                identity = 0
+            elif operator == "*" or "/":
+                identity = 1
+            if key2[-1] == "":
+                second_number = identity
+            else:
+                second_number = float(key2[-1])
+            if operator == "/":
+                number = first_number / second_number
+            elif operator == "*":
+                number = first_number * second_number
+            elif operator == "-":
+                number = first_number - second_number
+            elif operator == "+":
+                number = first_number + second_number
+            else:
+                number = second_number
+            first_number = number
+        if length == 0:
+            number = float(operator_number[0].split(" ")[-1])
+        if math.ceil(number) == number:
+            number = int(number)
+        box.configure(state="normal")
+        box.delete(0, END)
+        box.insert(0, number)
+        box.configure(state="disabled")
 
 
 # number buttons
