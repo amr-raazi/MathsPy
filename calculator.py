@@ -75,7 +75,10 @@ def backspace_button():
     list_of = list(box.get())
     list_of.pop()
     str1 = ''.join(str(e) for e in list_of)
+    box.configure(state="normal")
+    box.delete(0, END)
     box.insert(0, str1)
+    box.configure(state="disabled")
 
 
 # equal button command
