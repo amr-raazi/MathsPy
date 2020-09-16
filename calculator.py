@@ -4,6 +4,7 @@ import math
 
 # program variable
 operator_number = {}
+number_list = []
 
 # initiating instance
 root = Tk()
@@ -38,10 +39,11 @@ def number_button(num):
 
 # clear button command
 def clear_command():
-    global operator_number
+    global operator_number, number_list
     box.configure(state="normal")
     box.delete(0, END)
     box.configure(state="disabled")
+    number_list = []
     operator_number = {}
     return None
 
@@ -50,8 +52,9 @@ def clear_command():
 def operator_button(operator):
     global operator_number
     number = box.get()
-    key = len(operator_number)
-    operator_number[key] = str(operator) + " " + str(number)
+    key_num = len(operator_number)
+    operator_number[key_num] = str(operator) + " " + str(number)
+    number_list.append(number)
     box.configure(state="normal")
     box.delete(0, END)
     box.configure(state="disabled")
@@ -90,8 +93,15 @@ def equal_command():
         length = len(operator_number)
         latest_value = box.get()
         operator_number[length] = latest_value
-        first_number = float(operator_number[0].split(" ")[-1])
-        for index in range(length):
+        first_number = operator_number[0].split(" ")[-1]
+        for i in range(length):
+            if first_number == "":
+                first_number = operator_number[i].split(" ")[-1]
+        initial_start_point = number_list.index(first_number)
+        if first_number == "":
+            return
+        for index in range(initial_start_point, length):
+            first_number = float(first_number)
             key = operator_number[index].split(" ")
             operator = key[0]
             key2 = operator_number[index + 1].split(" ")
