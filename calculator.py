@@ -111,8 +111,10 @@ def equal_command():
                 first_number = number
                 if length == 0:
                     number = float(operator_number[0].split(" ")[-1])
-                if math.ceil(number) == number:
-                    number = int(number)
+            if number is None:
+                number = first_number
+            if math.ceil(number) == number:
+                number = int(number)
         box.configure(state="normal")
         box.delete(0, END)
         box.insert(0, number)
