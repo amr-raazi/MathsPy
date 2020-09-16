@@ -49,13 +49,7 @@ def clear_command():
 # operator button command
 def operator_button(operator):
     global operator_number
-    if operator == "-" or "+":
-        identity = 0
-    elif operator == "*" or "/":
-        identity = 1
     number = box.get()
-    if str(number) == "":
-        number = identity
     key = len(operator_number)
     operator_number[key] = str(operator) + " " + str(number)
     box.configure(state="normal")
@@ -90,6 +84,7 @@ def backspace_command():
 
 # equal button command
 def equal_command():
+    number = None
     global operator_number
     if len(operator_number) != 0:
         length = len(operator_number)
@@ -100,29 +95,24 @@ def equal_command():
             key = operator_number[index].split(" ")
             operator = key[0]
             key2 = operator_number[index + 1].split(" ")
-            if operator == "-" or "+":
-                identity = 0
-            elif operator == "*" or "/":
-                identity = 1
-            if key2[-1] == "":
-                second_number = identity
-            else:
-                second_number = float(key2[-1])
-            if operator == "/":
-                number = first_number / second_number
-            elif operator == "*":
-                number = first_number * second_number
-            elif operator == "-":
-                number = first_number - second_number
-            elif operator == "+":
-                number = first_number + second_number
-            else:
-                number = second_number
-            first_number = number
-        if length == 0:
-            number = float(operator_number[0].split(" ")[-1])
-        if math.ceil(number) == number:
-            number = int(number)
+            second_number = key2[-1]
+            if second_number != "":
+                second_number = float(second_number)
+                if operator == "/":
+                    number = first_number / second_number
+                elif operator == "*":
+                    number = first_number * second_number
+                elif operator == "-":
+                    number = first_number - second_number
+                elif operator == "+":
+                    number = first_number + second_number
+                else:
+                    number = second_number
+                first_number = number
+                if length == 0:
+                    number = float(operator_number[0].split(" ")[-1])
+                if math.ceil(number) == number:
+                    number = int(number)
         box.configure(state="normal")
         box.delete(0, END)
         box.insert(0, number)
