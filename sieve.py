@@ -1,14 +1,17 @@
 import math
 
-limit = 100
-numbers = list(range(2, limit))
-max_root = math.ceil(math.sqrt(limit))
-divisor = 1
-while divisor < max_root:
-    divisor += 1
-    if divisor not in numbers:
-        continue
-    for number in numbers[numbers.index(divisor):]:
-        if not number % divisor:
-            numbers.remove(number)
-print(numbers)
+
+def sieve(limit):
+    numbers = list(range(2, limit))
+    max_root = math.ceil(math.sqrt(limit))
+    i = 0
+    divisor = numbers[i]
+    while divisor < max_root:
+        divisor = numbers[i]
+        for number in numbers[numbers.index(divisor) + 1:]:
+            if not number % divisor:
+                numbers.remove(number)
+        i += 1
+    return numbers
+
+
