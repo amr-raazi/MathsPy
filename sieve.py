@@ -2,16 +2,15 @@ import math
 
 
 def sieve(limit):
-    numbers = list(range(2, limit))
+    numbers = {i: True for i in range(2, limit)}
     max_root = math.ceil(math.sqrt(limit))
     i = 0
-    divisor = numbers[i]
+    keys = list(numbers.keys())
+    divisor = keys[i]
     while divisor < max_root:
-        divisor = numbers[i]
-        for number in numbers[numbers.index(divisor) + 1:]:
+        divisor = keys[i]
+        for number in keys[i + 1:]:
             if not number % divisor:
-                numbers.remove(number)
+                numbers[number] = False
         i += 1
     return numbers
-
-
