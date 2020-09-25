@@ -13,7 +13,7 @@ def is_prime(number):
             return False
         else:
             for potential_factor in range(2, math.ceil(number / 2)):
-                if number % potential_factor == 0:
+                if not number % potential_factor:
                     prime = False
             if prime:
                 return True
