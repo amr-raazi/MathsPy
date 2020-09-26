@@ -50,23 +50,22 @@ def click_button(x, y):
     evaluate()
 
 
-# eveluate win conditions
+# evaluate win conditions
 def evaluate():
     global tic_tac_toe, winner
-  #  print(tic_tac_toe[1][1])
     # horizontal check
     for line in tic_tac_toe:
         if line.count(1) == 3 or line.count(2) == 3:
             winner = line[0]
     # vertical check
     for x in range(3):
-        if tic_tac_toe[0][x] == tic_tac_toe[1][x] == tic_tac_toe[2][x]:
+        if tic_tac_toe[0][x] == tic_tac_toe[1][x] == tic_tac_toe[2][x] == 1 or  \
+                tic_tac_toe[0][x] == tic_tac_toe[1][x] == tic_tac_toe[2][x] == 2:
             winner = tic_tac_toe[0][x]
     # diagonal checking
-    if tic_tac_toe[0][0] == tic_tac_toe[1][1] == tic_tac_toe[2][2] or tic_tac_toe[0][2] == tic_tac_toe[1][1] == \
-            tic_tac_toe[2][0]:
+    if tic_tac_toe[0][0] == tic_tac_toe[1][1] == tic_tac_toe[2][2] or  \
+            tic_tac_toe[0][2] == tic_tac_toe[1][1] == tic_tac_toe[2][0]:
         winner = tic_tac_toe[1][1]
-        print(winner)
     # check if a player won
     if winner != 0:
         winning_sequence()
@@ -90,10 +89,13 @@ def winning_sequence():
 top_one.grid(row=1, column=0)
 top_two.grid(row=1, column=1)
 top_three.grid(row=1, column=2)
+
 middle_one.grid(row=2, column=0)
 middle_two.grid(row=2, column=1)
 middle_three.grid(row=2, column=2)
+
 bottom_one.grid(row=3, column=0)
 bottom_two.grid(row=3, column=1)
 bottom_three.grid(row=3, column=2)
+
 root.mainloop()
