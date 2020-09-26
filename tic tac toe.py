@@ -39,29 +39,34 @@ def click_button(x, y):
 
 
 def evaluate():
-    global tic_tac_toe, winner, root
+    global tic_tac_toe, winner
     # horizontal check
     for line in tic_tac_toe:
         if line.count(1) == 3 or line.count(2) == 3:
             winner = line[0]
+    # vertical check
     for x in range(3):
-        if tic_tac_toe[0][x] == tic_tac_toe[1][x] == tic_tac_toe[2][x] == 1 or tic_tac_toe[0][x] \
-                == tic_tac_toe[1][x] == tic_tac_toe[2][x] == 2:
+        if tic_tac_toe[0][x] == tic_tac_toe[1][x] == tic_tac_toe[2][x]:
             winner = tic_tac_toe[0][x]
     # diagonal checking
-    if tic_tac_toe[0][0] == tic_tac_toe[1][1] == tic_tac_toe[2][2] == 1 or tic_tac_toe[0][0] == tic_tac_toe[1][1] == \
-            tic_tac_toe[2][2] == 2:
+    if tic_tac_toe[0][0] == tic_tac_toe[1][1] == tic_tac_toe[2][2] == 1 or tic_tac_toe[0][2] == tic_tac_toe[1][1] == \
+            tic_tac_toe[2][0]:
         winner = tic_tac_toe[1][1]
     if winner != 0:
-        if winner == 1:
-            winner = "X"
-        else:
-            winner = "O"
-        root.destroy()
-        root = Tk()
-        Label(text=f"Player who was playing symbol {winner} won!", font=button_font).pack()
-        Button(text=f"Exit", command=lambda: root.destroy(), font=button_font).pack()
-        root.mainloop()
+        winning_sequence()
+
+
+def winning_sequence():
+    global winner, root
+    if winner == 1:
+        winner = "X"
+    else:
+        winner = "O"
+    root.destroy()
+    root = Tk()
+    Label(text=f"Player who was playing symbol {winner} won!", font=button_font).pack()
+    Button(text=f"Exit", command=lambda: root.destroy(), font=button_font).pack()
+    root.mainloop()
 
 
 top_one.grid(row=1, column=0)
