@@ -22,7 +22,7 @@ def replace_in_brackets(input_string):
         number_of_digits = num_of_digits(bracket_end_index, input_string)
         in_brackets_with_number = input_string[bracket_start_index:bracket_end_index + number_of_digits]
         list_with_numbers.append(in_brackets_with_number)
-    # replace in string(bracket compounds + numbers)
+    # replace in string(bracket compounds + numbers) with greek pointer
     for i in range(1, len(list_with_numbers) + 1):
         input_string = input_string.replace(list_with_numbers[i - 1], greeks[i - 1])
     for groups in list_with_numbers:
@@ -44,7 +44,7 @@ def replace_in_brackets(input_string):
                 replacement += str(letters) + str(int(inside_number) * int(number))
             else:
                 replacement += element + str(number)
-        # replace substring
+        # replace greek pointers with substring
         input_string = input_string.replace(greeks[count], replacement)
         count += 1
     return input_string
