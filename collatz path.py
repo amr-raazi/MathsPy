@@ -14,10 +14,8 @@ def collatz(num):
 
 number = 420
 path = collatz(number)
-print(collatz(number))
-path_dict = {}
-for i in range(1, len(path)):
-    path_dict[i] = path[i]
+print(path)
+path_dict = {i: path[i] for i in range(1, len(path))}
 plt.plot(path_dict.keys(), path_dict.values())
 plt.ylabel("Number")
 plt.xlabel("Number of steps")

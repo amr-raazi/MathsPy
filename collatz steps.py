@@ -12,13 +12,9 @@ def collatz(num):
     return num_of_steps
 
 
-collatz_dict = {}
-limit = 1000
-for i in range(1, limit):
-    collatz_dict[i] = collatz(i)
-keys = list(collatz_dict.keys())
-values = list(collatz_dict.values())
-plt.plot(keys, values)
+limit = 100
+collatz_dict = {i: collatz(i) for i in range(1, limit)}
+plt.plot(list(collatz_dict.keys()), list(collatz_dict.values()))
 plt.ylabel("Collatz number of steps")
 plt.title("Collatz")
 plt.show()
