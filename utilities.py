@@ -14,11 +14,8 @@ def is_prime(number):
         else:
             for potential_factor in range(2, math.ceil(math.sqrt(number))):
                 if not number % potential_factor:
-                    prime = False
-            if prime:
-                return True
-            else:
-                return False
+                    return False
+            return True
     except TypeError or ValueError:
         return "Please enter a valid integer"
 
